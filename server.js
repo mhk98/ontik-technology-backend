@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dbConnect = require('./config/database.config');
-const DrawingRoute = require('./routes/drawing')
+const UserRoute = require('./routes/user')
+const RoomsRoute = require('./routes/rooms')
+const BookingsRoute = require('./routes/bookings')
 const app = express();
 const cors = require("cors");
 require('dotenv').config();
@@ -14,7 +16,9 @@ app.use(bodyParser.json())
 
 
 dbConnect()
-app.use('/api/v1/drawing',DrawingRoute)
+app.use('/api/v1/user',UserRoute)
+app.use('/api/v1/rooms',RoomsRoute)
+app.use('/api/v1/bookings',BookingsRoute)
 
 
 // // Serve static React frontend

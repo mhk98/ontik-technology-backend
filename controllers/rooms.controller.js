@@ -1,16 +1,14 @@
-const Drawing = require("../models/drawing");
+const Rooms = require("../models/rooms");
 
 
-
-
-module.exports.createDrawing = async (req, res) => {
+module.exports.createRooms = async (req, res) => {
   try {
-    const drawing = new Drawing(req.body);
-    await drawing.save();
+    const rooms = new Rooms(req.body);
+    await rooms.save();
     res.status(200).send({
       status: 'Success',
-      message: 'Successfully inserted drawing data',
-      data: drawing
+      message: 'Successfully inserted rooms data',
+      data: rooms
     });
   } catch (error) {
     res.status(500).send({
@@ -23,13 +21,13 @@ module.exports.createDrawing = async (req, res) => {
 
 
 
-module.exports.getAllDrawing = async(req, res) => {
+module.exports.getAllRooms = async(req, res) => {
   try {
-    const drawings = await Drawing.find();
+    const rooms = await Rooms.find();
     res.status(200).send({
       status: "Success",
-      message: "You got all drawing",
-      data: drawings,
+      message: "You got all rooms",
+      data: rooms,
     });
   } catch (error) {
     res.status(500).send({
@@ -41,22 +39,22 @@ module.exports.getAllDrawing = async(req, res) => {
 };
 
 //Single data using get method
-module.exports.getSingleDrawing = async(req, res) => {
+module.exports.getSingleRooms = async(req, res) => {
   try {
     const { id } = req.params;
     console.log(id)
     if(!id){
       return res.status(404).send('Id not found')
     }
-    const drawing = await Drawing.findById(id);
-    if (!drawing) {
+    const rooms = await Rooms.findById(id);
+    if (!rooms) {
       return res.status(404).send('Data not found');
   }
   
     res.status(200).send({
       status: "Success",
-      message: "You got single drawing data",
-      data: drawing,
+      message: "You got single rooms data",
+      data: rooms,
     });
   } catch (error) {
     res.status(500).send({
@@ -67,7 +65,7 @@ module.exports.getSingleDrawing = async(req, res) => {
   }
 };
 
-module.exports.updateDrawing = async(req, res) => {
+module.exports.updateRooms= async(req, res) => {
   try {
     const { id } = req.params;
     const data = req.body
@@ -80,11 +78,12 @@ module.exports.updateDrawing = async(req, res) => {
       return res.status(404).send('Data is empty')
     }
 
-    const drawing = await Drawing.findByIdAndUpdate(id, data, { new: true, runValidators: true });
+    const rooms = await Rooms.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 
     res.status(200).send({
       status: "Success",
       message: "You successfully update data",
+      data: rooms
      
     });
   } catch (error) {
@@ -96,17 +95,17 @@ module.exports.updateDrawing = async(req, res) => {
   }
 };
 
-module.exports.deleteDrawing = async(req, res) => {
+module.exports.deleteRooms= async(req, res) => {
   try {
     const { id } = req.params;
-    const drawing = await Drawing.findByIdAndDelete(id);
+    const rooms = await Rooms.findByIdAndDelete(id);
 
-    if (!drawing) {
+    if (!rooms) {
       return res.status(404).send();
   }
     res.status(200).send({
       status: "Success",
-      message: "Successfully delete drawing",
+      message: "Successfully delete rooms",
      
     });
   } catch (error) {
